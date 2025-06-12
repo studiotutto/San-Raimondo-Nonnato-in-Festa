@@ -636,6 +636,77 @@
             color: #aaa;
             font-size: 0.9rem;
         }
+
+        /* ============== INIZIO NUOVO CSS PER LA SEZIONE DONAZIONI ============== */
+        .donations {
+            background-color: var(--light);
+        }
+
+        .donation-box {
+            background-color: white;
+            border-radius: 15px;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            border-left: 5px solid var(--accent);
+        }
+
+        .donation-box p {
+            font-size: 1.1rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .donation-iban-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            background-color: #f0f3f5;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .iban-code {
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--dark);
+            word-break: break-all;
+        }
+
+        .copy-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .copy-btn:hover {
+            background-color: #e55a2b;
+            transform: translateY(-2px);
+        }
+        
+        .copy-btn.copied {
+            background-color: var(--success);
+        }
+        
+        .donation-causale {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: #777;
+        }
+        /* ============== FINE NUOVO CSS ============== */
         
         /* Responsive Design */
         @media (max-width: 992px) {
@@ -711,6 +782,98 @@
             section {
                 padding: 3rem 1rem;
             }
+
+            .donation-box {
+                padding: 25px;
+            }
+            .iban-code {
+                font-size: 1.1rem;
+            }
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1001;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .close-button {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            cursor: pointer;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+
+        .slider-track {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-track img {
+            width: 100%;
+            flex-shrink: 0;
+            display: block;
+            border-radius: 8px;
+        }
+
+        .prev-slide, .next-slide {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0,0,0,0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1.5rem;
+            z-index: 10;
+        }
+
+        .prev-slide {
+            left: 10px;
+        }
+
+        .next-slide {
+            right: 10px;
         }
     </style>
 </head>
@@ -1173,6 +1336,35 @@
         </div>
     </section>
 
+    <!-- =============================================================== -->
+    <!-- ============== INIZIO NUOVA SEZIONE DONAZIONI ============== -->
+    <!-- =============================================================== -->
+    <section id="donations" class="donations">
+        <div class="container">
+            <div class="section-title">
+                <h2>Sostieni la Nostra Comunità</h2>
+            </div>
+            <div class="donation-box">
+                <p>La festa è un momento di gioia che unisce tutti noi. Ogni evento, ogni sorriso, è possibile grazie all'impegno di tanti e alla generosità di chi, come te, crede nel valore della nostra comunità. Il tuo contributo, piccolo o grande che sia, è un mattone prezioso per sostenere le opere e le necessità quotidiane della nostra Parrocchia. <br><strong>Grazie di cuore per ciò che potrai fare.</strong></p>
+                
+                <div class="donation-iban-container">
+                    <span id="ibanCode" class="iban-code">IT81 A083 2703 2630 0000 0000 125</span>
+                    <button id="copyIbanBtn" class="copy-btn">
+                        <i class="fas fa-copy"></i>
+                        <span id="copyBtnText">Copia IBAN</span>
+                    </button>
+                </div>
+                
+                <div class="donation-causale">
+                    <p>Per una corretta gestione, ti suggeriamo di inserire come causale: "Erogazione liberale - Parrocchia San Raimondo Nonnato"</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =============================================================== -->
+    <!-- ================ FINE NUOVA SEZIONE DONAZIONI ================= -->
+    <!-- =============================================================== -->
+
     <!-- Location Section -->
     <section id="location" class="location">
         <div class="container">
@@ -1309,6 +1501,22 @@
         </div>
     </footer>
 
+    <!-- Locandina Modal -->
+    <div id="locandinaModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <div class="slider-container">
+                <div class="slider-track">
+                    <img src="img/locandina/IMG_0702.jpeg" alt="Locandina 1">
+                    <img src="img/locandina/IMG_0703.jpeg" alt="Locandina 2">
+                    <img src="img/locandina/IMG_0704.jpeg" alt="Locandina 3">
+                </div>
+                <button class="prev-slide"><</button>
+                <button class="next-slide">></button>
+            </div>
+        </div>
+    </div>
+
     <script>
         // Mobile menu toggle
         const menuToggle = document.getElementById('menuToggle');
@@ -1323,9 +1531,12 @@
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetElement = document.querySelector(this.getAttribute('href'));
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
                 
                 // Close mobile menu if open
                 navMenu.classList.remove('active');
@@ -1428,98 +1639,117 @@
             right: 20px;
             cursor: pointer;
         }
-
-        .close-button:hover,
-        .close-button:focus {
-            color: black;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Slider Styles */
-        .slider-container {
-            position: relative;
-            width: 100%;
-            overflow: hidden;
-            border-radius: 8px;
-        }
-
-        .slider-track {
-            display: flex;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .slider-track img {
-            width: 100%;
-            flex-shrink: 0;
-            display: block;
-            border-radius: 8px;
-        }
-
-        .prev-slide, .next-slide {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background-color: rgba(0,0,0,0.5);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            cursor: pointer;
-            border-radius: 5px;
-            font-size: 1.5rem;
-            z-index: 10;
-        }
-
-        .prev-slide {
-            left: 10px;
-        }
-
-        .next-slide {
-            right: 10px;
-        }
-    </style>
-
-    <script>
+        </style>
+<script>
         // Locandina Modal Logic
         const locandinaLink = document.getElementById('locandina-link');
         const locandinaModal = document.getElementById('locandinaModal');
-        const closeButton = document.querySelector('.close-button');
-        const sliderTrack = document.querySelector('.slider-track');
-        const slides = document.querySelectorAll('.slider-track img');
-        const prevSlideBtn = document.querySelector('.prev-slide');
-        const nextSlideBtn = document.querySelector('.next-slide');
+        const closeButton = locandinaModal ? locandinaModal.querySelector('.close-button') : null;
+        const sliderTrack = locandinaModal ? locandinaModal.querySelector('.slider-track') : null;
+        const slides = sliderTrack ? sliderTrack.querySelectorAll('img') : [];
+        const prevSlideBtn = locandinaModal ? locandinaModal.querySelector('.prev-slide') : null;
+        const nextSlideBtn = locandinaModal ? locandinaModal.querySelector('.next-slide') : null;
         let currentSlide = 0;
 
-        locandinaLink.addEventListener('click', (e) => {
-            e.preventDefault();
-            locandinaModal.style.display = 'flex';
-            currentSlide = 0;
-            updateSlider();
-        });
+        // Add console logs for debugging missing elements
+        if (!locandinaLink) console.error("Element with ID 'locandina-link' not found.");
+        if (!locandinaModal) console.error("Element with ID 'locandinaModal' not found.");
+        if (!closeButton) console.error("Element with class 'close-button' inside '#locandinaModal' not found.");
+        if (!sliderTrack) console.error("Element with class 'slider-track' inside '#locandinaModal' not found.");
+        if (slides.length === 0) console.error("No image elements found inside '#locandinaModal .slider-track'.");
+        if (!prevSlideBtn) console.error("Element with class 'prev-slide' inside '#locandinaModal' not found.");
+        if (!nextSlideBtn) console.error("Element with class 'next-slide' inside '#locandinaModal' not found.");
 
-        closeButton.addEventListener('click', () => {
-            locandinaModal.style.display = 'none';
-        });
-
-        window.addEventListener('click', (e) => {
-            if (e.target === locandinaModal) {
-                locandinaModal.style.display = 'none';
-            }
-        });
-
-        function updateSlider() {
-            sliderTrack.style.transform = `translateX(${-currentSlide * 100}%)`;
+        if (locandinaLink && locandinaModal) {
+            locandinaLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                try {
+                    locandinaModal.style.display = 'flex';
+                    currentSlide = 0;
+                    updateSlider();
+                } catch (error) {
+                    console.error("Error opening locandina modal:", error);
+                }
+            });
         }
 
-        prevSlideBtn.addEventListener('click', () => {
-            currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
-            updateSlider();
-        });
+        if (closeButton && locandinaModal) {
+            closeButton.addEventListener('click', () => {
+                locandinaModal.style.display = 'none';
+            });
+        }
 
-        nextSlideBtn.addEventListener('click', () => {
-            currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
-            updateSlider();
-        });
+        if (locandinaModal) {
+            window.addEventListener('click', (event) => {
+                if (event.target == locandinaModal) {
+                    locandinaModal.style.display = 'none';
+                }
+            });
+        }
+
+        function updateSlider() {
+            try {
+                if (sliderTrack && slides.length > 0) {
+                    sliderTrack.style.transform = `translateX(${-currentSlide * 100}%)`;
+                } else {
+                    console.warn("Slider track or slides not found for updateSlider.");
+                }
+            } catch (error) {
+                console.error("Error in updateSlider:", error);
+            }
+        }
+
+        if (prevSlideBtn && slides.length > 0) {
+            prevSlideBtn.addEventListener('click', () => {
+                try {
+                    currentSlide = (currentSlide === 0) ? slides.length - 1 : currentSlide - 1;
+                    updateSlider();
+                } catch (error) {
+                    console.error("Error in prevSlideBtn click handler:", error);
+                }
+            });
+        }
+
+        if (nextSlideBtn && slides.length > 0) {
+            nextSlideBtn.addEventListener('click', () => {
+                try {
+                    currentSlide = (currentSlide === slides.length - 1) ? 0 : currentSlide + 1;
+                    updateSlider();
+                } catch (error) {
+                    console.error("Error in nextSlideBtn click handler:", error);
+                }
+            });
+        }
+
+        // =============== INIZIO SCRIPT PER IL PULSANTE COPIA IBAN ===============
+        const copyIbanBtn = document.getElementById('copyIbanBtn');
+        if (copyIbanBtn) {
+            const ibanCodeElement = document.getElementById('ibanCode');
+            const copyBtnText = document.getElementById('copyBtnText');
+            const copyBtnIcon = copyIbanBtn.querySelector('i');
+
+            copyIbanBtn.addEventListener('click', () => {
+                const ibanToCopy = ibanCodeElement.innerText.replace(/\s/g, '');
+                
+                navigator.clipboard.writeText(ibanToCopy).then(() => {
+                    copyBtnText.textContent = 'Copiato!';
+                    copyBtnIcon.classList.remove('fa-copy');
+                    copyBtnIcon.classList.add('fa-check');
+                    copyIbanBtn.classList.add('copied');
+                    
+                    setTimeout(() => {
+                        copyBtnText.textContent = 'Copia IBAN';
+                        copyBtnIcon.classList.remove('fa-check');
+                        copyBtnIcon.classList.add('fa-copy');
+                        copyIbanBtn.classList.remove('copied');
+                    }, 3000);
+                }).catch(err => {
+                    console.error('Errore nella copia dell\'IBAN: ', err);
+                    alert('Impossibile copiare l\'IBAN. Per favore, copialo manualmente.');
+                });
+            });
+        }
+        // =============== FINE SCRIPT PER IL PULSANTE COPIA IBAN ===============
     </script>
 </body>
 </html>
